@@ -1,0 +1,33 @@
+{
+  "brand": "Sai Karthik",
+  "institute": "Sai Karthik Fitness Institute",
+  "title": "Certified Personal Trainer",
+  "tagline": "Advanced Personal Training • Female Fitness • Special Population • CPR & AED Certified",
+  "about": "Hi, I'm Sai Karthik. I'm a certified personal trainer trained in advanced personal training, female fitness coaching and special population training. I'm also trained in CPR and AED, so your safety always comes first. Every plan is built around you: your goals, your body, your pace.",
+  "aboutImage": "",
+  "stats": [
+    { "n": "5", "l": "Certifications" },
+    { "n": "3", "l": "Sai Karthik Courses" },
+    { "n": "2", "l": "Life-Saving Skills" },
+    { "n": "2028", "l": "Certified Until" }
+  ],
+  "services": [
+    { "t": "Advanced Personal Training", "d": "One-to-one programs for strength, fat loss and muscle gain with proper technique." },
+    { "t": "Female Fitness Training", "d": "Training designed around women's goals, physiology and comfort." },
+    { "t": "Special Population", "d": "Safe, guided training for seniors, beginners and people with special needs." },
+    { "t": "Safety First", "d": "CPR and AED certified, so you train with a coach who is ready for emergencies." }
+  ],
+  "certs": [
+    { "title": "Advanced Personal Training", "issuer": "Sai Karthik Fitness Institute", "date": "01 May 2026", "valid": "01 May 2028", "no": "HYD/MM/APT/11826", "img": "/uploads/advanced-pt.jpg" },
+    { "title": "Female Fitness Training", "issuer": "Sai Karthik Fitness Institute", "date": "01 May 2026", "valid": "01 May 2028", "no": "HYD/MM/FF/09691", "img": "/uploads/female-fitness.jpg" },
+    { "title": "Special Population", "issuer": "Sai Karthik Fitness Institute", "date": "01 May 2026", "valid": "01 May 2028", "no": "HYD/MM/SP/09691", "img": "/uploads/special-population.jpg" },
+    { "title": "Cardiopulmonary Resuscitation (CPR)", "issuer": "Australian Life Saving Academy, NSW", "date": "18 Sep 2025", "valid": "17 Sep 2026", "no": "I/A/26315", "img": "/uploads/cpr.jpg" },
+    { "title": "Automated External Defibrillator (AED)", "issuer": "Australian Life Saving Academy, NSW", "date": "18 Sep 2025", "valid": "17 Sep 2026", "no": "I/A/26315", "img": "/uploads/aed.jpg" }
+  ],
+  "goals": ["Fat loss", "Muscle gain", "Strength training", "Female fitness", "Senior / special needs", "Other"],
+  "phone": "",
+  "whatsapp": "",
+  "email": "",
+  "instagram": "",
+  "location": "Hyderabad"
+}

@@ -1,0 +1,642 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sai Karthik | Elite Coaching</title>
+<meta name="description" content="Strength training and physique coaching with Sai Karthik.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;800;900&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+<style>
+:root{
+  --gold:#d4af37;
+  --gold-light:#f3d978;
+  --red:#b3131b;
+  --bg:#070709;
+  --card:#121218;
+  --text:#f5f5f5;
+  --muted:#a6a6ae;
+  --line:rgba(212,175,55,.16);
+  --ease:cubic-bezier(.16,1,.3,1);
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:85px}
+body{margin:0;background:var(--bg);color:var(--text);font-family:"Plus Jakarta Sans",sans-serif;line-height:1.6;overflow-x:hidden}
+a{color:inherit}
+.container{width:min(1200px,calc(100% - 48px));margin:auto}
+h1,h2,h3{font-family:Cinzel,serif;text-transform:uppercase;line-height:1.15;margin:0}
+h2{font-size:clamp(2rem,4vw,3.2rem)}
+.muted{color:var(--muted)}
+.gold{color:var(--gold)}
+section{padding:100px 0;border-top:1px solid var(--line)}
+.progress{position:fixed;top:0;left:0;width:100%;height:3px;background:linear-gradient(90deg,var(--red),var(--gold),var(--gold-light));transform-origin:left;z-index:2000}
+
+header{
+  position:sticky;top:0;z-index:1000;
+  background:rgba(7,7,9,.72);backdrop-filter:blur(18px);
+  border-bottom:1px solid transparent;transition:.4s var(--ease)
+}
+header.scrolled{background:rgba(7,7,9,.95);border-color:var(--line);box-shadow:0 10px 30px #0008}
+nav{display:flex;align-items:center;justify-content:space-between;padding:20px 0;transition:.4s var(--ease)}
+header.scrolled nav{padding:12px 0}
+.brand{font:900 1.4rem Cinzel,serif;text-decoration:none}
+.brand span{color:var(--gold)}
+.nav-links{display:flex;align-items:center;gap:25px}
+.nav-links a{font-size:.8rem;font-weight:700;text-decoration:none;text-transform:uppercase;color:var(--muted);position:relative}
+.nav-links a:not(.btn):after{content:"";position:absolute;left:0;right:0;bottom:-5px;height:2px;background:linear-gradient(90deg,var(--red),var(--gold));transform:scaleX(0);transition:.35s}
+.nav-links a:hover{color:var(--gold)}
+.nav-links a:hover:after{transform:scaleX(1)}
+.btn{
+  display:inline-flex;align-items:center;justify-content:center;
+  padding:14px 28px;border-radius:6px;text-decoration:none;
+  text-transform:uppercase;letter-spacing:1px;font-size:.82rem;font-weight:800;
+  background:linear-gradient(135deg,var(--red),#650b10);
+  border:1px solid #b3131b88;box-shadow:0 5px 25px #b3131b66;
+  transition:.4s var(--ease);cursor:pointer;color:white
+}
+.btn:hover{transform:translateY(-3px);box-shadow:0 12px 35px #b3131b88}
+.btn.gold-btn{background:linear-gradient(135deg,var(--gold),#8f741c);color:#050505;box-shadow:0 5px 25px #d4af3766}
+.btn.gold-btn:hover{box-shadow:0 12px 35px #d4af3788}
+.burger{display:none;background:none;border:1px solid var(--line);width:42px;height:42px;border-radius:8px;position:relative}
+.burger span{position:absolute;left:10px;right:10px;height:2px;background:var(--gold);transition:.35s}
+.burger span:first-child{top:15px}.burger span:last-child{top:25px}
+.burger.open span:first-child{top:20px;transform:rotate(45deg)}
+.burger.open span:last-child{top:20px;transform:rotate(-45deg)}
+.mobile-menu{display:none}
+
+.hero{
+  min-height:calc(100vh - 84px);display:flex;align-items:center;justify-content:center;
+  text-align:center;position:relative;overflow:hidden;
+  background:
+    linear-gradient(rgba(10,10,12,.38),rgba(10,10,12,.7)),
+    url("sai-karthik-hero.png") center center/cover no-repeat,
+    radial-gradient(circle at center,#d4af3715,transparent 65%);
+  border-radius:36px 36px 0 0;
+  box-shadow:inset 0 0 0 1px rgba(255,255,255,.08);
+}
+.hero .container{position:relative;z-index:2}
+.hero:before,.hero:after{
+  content:"";position:absolute;width:min(70vw,620px);aspect-ratio:1;border:1px solid rgba(255,255,255,.12);
+  border-radius:50%;animation:ring 9s linear infinite;pointer-events:none;left:50%;top:50%;transform:translate(-50%,-50%)
+}
+.hero:after{animation-delay:-4.5s}
+@keyframes ring{from{transform:translate(-50%,-50%) scale(.4);opacity:0}30%{opacity:1}to{transform:translate(-50%,-50%) scale(1.4);opacity:0}}
+.badge{
+  display:inline-block;padding:8px 20px;border:1px solid var(--gold);border-radius:30px;
+  color:var(--gold-light);background:#d4af3715;font-size:.8rem;font-weight:800;text-transform:uppercase
+}
+.hero h1{font-size:clamp(3.3rem,8vw,9rem);margin:25px 0;line-height:0.9;font-weight:900;letter-spacing:-.06em;color:#fff;text-transform:none}
+.hero h1 span{display:block;color:#fff}
+.hero h1.hero-heading{font-family:"Plus Jakarta Sans",sans-serif;text-transform:none;font-weight:900;letter-spacing:-.06em}
+.hero h1.hero-heading span{display:inline-block}
+.hero p{max-width:760px;margin:0 auto 32px;color:rgba(255,255,255,.9);font-size:clamp(1.2rem,2vw,2rem);font-weight:500;line-height:1.4}
+
+.actions{display:flex;justify-content:center;gap:16px;flex-wrap:wrap}
+.stats{display:flex;justify-content:center;gap:clamp(30px,7vw,75px);margin-top:55px;flex-wrap:wrap}
+.stat strong{display:block;font:900 2rem Cinzel;color:var(--gold)}
+.stat span{font-size:.75rem;color:var(--muted);text-transform:uppercase;letter-spacing:1px}
+.scroll{position:absolute;bottom:25px;width:25px;height:40px;border:2px solid var(--line);border-radius:15px}
+.scroll:after{content:"";position:absolute;left:50%;top:7px;width:4px;height:8px;background:var(--gold);border-radius:3px;transform:translateX(-50%);animation:scroll 1.6s infinite}
+@keyframes scroll{to{transform:translate(-50%,15px);opacity:0}}
+
+.section-title{text-align:center;margin-bottom:55px}
+.section-title p{color:var(--muted);margin:12px auto 0;max-width:700px}
+.line{width:70px;height:3px;margin:17px auto;background:linear-gradient(90deg,var(--red),var(--gold))}
+
+.trainer{display:grid;grid-template-columns:1fr 1fr;gap:55px;align-items:center}
+.trainer-photo{padding:10px;border-radius:14px;background:linear-gradient(145deg,#d4af374d,#b3131b33);box-shadow:0 20px 50px #000}
+.trainer-photo img{width:100%;display:block;border-radius:8px;aspect-ratio:4/5;object-fit:cover}
+.eyebrow{color:var(--gold);font-size:.8rem;font-weight:800;text-transform:uppercase;letter-spacing:1px}
+.trainer h2{margin:8px 0 18px}
+.check-list{list-style:none;padding:0;margin:25px 0}
+.check-list li{margin:10px 0;color:var(--muted);padding-left:25px;position:relative}
+.check-list li:before{content:"✦";position:absolute;left:0;color:var(--gold)}
+
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:25px}
+.card{
+  background:linear-gradient(145deg,#15151d,#0e0e13);border:1px solid var(--line);
+  border-radius:12px;padding:30px;transition:.45s var(--ease)
+}
+.card:hover{transform:translateY(-8px);border-color:var(--gold);box-shadow:0 15px 40px #d4af371c}
+.transformation-photo{display:block;width:100%;aspect-ratio:1;object-fit:cover;border-radius:8px;margin-bottom:20px}
+.card h3{font-size:1.1rem;color:white;margin-bottom:12px}
+.card p{color:var(--muted);margin:0}
+.quote{font-size:2.8rem;color:var(--gold);opacity:.4;font-family:Georgia}
+.testimonial blockquote{color:var(--muted);font-style:italic;margin:0}
+.testimonial strong{display:block;color:var(--gold);font-family:Cinzel;margin-top:18px;text-transform:uppercase}
+.testimonial small{color:var(--muted)}
+
+.price-card{display:flex;flex-direction:column}
+.price-card.highlight{border-color:var(--gold);box-shadow:0 0 35px #d4af3722}
+.pill{display:inline-block;background:var(--gold);color:#000;border-radius:20px;padding:4px 12px;font-size:.7rem;font-weight:900;align-self:flex-start}
+.price{font:900 2.3rem Cinzel;color:var(--gold);margin:15px 0}
+.price-card.highlight .price{color:white}
+.features{list-style:none;padding:0;color:var(--muted);margin:15px 0 25px}
+.features li{padding:7px 0}.features li:before{content:"✓";color:var(--gold);margin-right:10px}
+.price-card .btn{margin-top:auto}
+
+.form-box{max-width:650px;margin:auto;background:#121218;border:1px solid var(--line);padding:40px;border-radius:12px}
+.field{width:100%;padding:14px;margin-bottom:16px;background:#050505;color:white;border:1px solid var(--line);border-radius:6px;font:1rem "Plus Jakarta Sans"}
+.field:focus{outline:none;border-color:var(--gold);box-shadow:0 0 0 4px #d4af3722}
+textarea.field{min-height:130px;resize:vertical}
+.form-message{display:none;text-align:center;padding:25px;color:var(--gold)}
+.form-message.show{display:block}
+
+.details{display:grid;grid-template-columns:1fr 1fr;gap:30px}
+.info{background:#121218;border:1px solid var(--line);padding:30px;border-radius:12px}
+.info h3{margin-bottom:16px}
+.info p{color:var(--muted)}
+.info a{color:var(--gold);text-decoration:none}
+.facilities{display:flex;flex-wrap:wrap;gap:10px}
+.facilities span{border:1px solid var(--line);padding:8px 12px;border-radius:20px;color:var(--muted);font-size:.85rem}
+
+footer{border-top:1px solid var(--line);padding:35px 0;text-align:center;color:var(--muted);font-size:.85rem}
+.whatsapp{
+  position:fixed;left:24px;bottom:24px;width:56px;height:56px;border-radius:50%;
+  background:#25d366;color:white;display:grid;place-items:center;text-decoration:none;
+  font-size:26px;z-index:999;box-shadow:0 10px 25px #25d36666
+}
+.whatsapp:after{content:"";position:absolute;inset:0;border:2px solid #25d366;border-radius:50%;animation:ping 2.2s infinite}
+@keyframes ping{to{transform:scale(1.7);opacity:0}}
+
+.chat-launcher{position:fixed;right:24px;bottom:24px;z-index:1100;border:0;border-radius:30px;padding:15px 20px;background:var(--gold);color:#080808;font:800 .9rem "Plus Jakarta Sans",sans-serif;box-shadow:0 10px 30px #0008;cursor:pointer}
+.chat-panel{position:fixed;right:24px;bottom:88px;z-index:1100;width:min(380px,calc(100vw - 32px));height:min(540px,calc(100vh - 120px));display:flex;flex-direction:column;overflow:hidden;border:1px solid var(--line);border-radius:16px;background:#101015;box-shadow:0 20px 60px #000b}
+.chat-panel[hidden]{display:none}
+.chat-header{display:flex;align-items:center;justify-content:space-between;padding:16px 18px;background:#17171e;border-bottom:1px solid var(--line)}
+.chat-header strong{display:block;color:var(--gold-light)}
+.chat-header small{color:var(--muted)}
+.chat-close{border:0;background:none;color:var(--muted);font-size:1.5rem;cursor:pointer}
+.chat-messages{flex:1;overflow-y:auto;padding:16px;display:flex;flex-direction:column;gap:12px}
+.chat-message{max-width:88%;padding:11px 13px;border-radius:12px;background:#202027;color:var(--text);font-size:.88rem;white-space:pre-line}
+.chat-message.user{align-self:flex-end;background:#3b3219}
+.chat-options{display:flex;flex-wrap:wrap;gap:8px}
+.chat-option{border:1px solid var(--gold);border-radius:18px;padding:8px 12px;background:transparent;color:var(--gold-light);font:600 .8rem "Plus Jakarta Sans",sans-serif;cursor:pointer}
+.chat-option:hover,.chat-option:focus-visible{background:#d4af3722}
+.chat-form{display:flex;gap:8px;padding:12px;border-top:1px solid var(--line)}
+.chat-input{min-width:0;flex:1;padding:11px;border:1px solid var(--line);border-radius:8px;background:#08080b;color:var(--text);font: .85rem "Plus Jakarta Sans",sans-serif}
+.chat-send{border:0;border-radius:8px;padding:0 14px;background:var(--gold);color:#080808;font-weight:800;cursor:pointer}
+.chat-link{color:var(--gold-light)}
+
+.reveal{opacity:0;transform:translateY(40px);filter:blur(4px);transition:1s var(--ease)}
+.reveal.active{opacity:1;transform:none;filter:none}
+
+@media(max-width:920px){
+  .nav-links{display:none}.burger{display:block}.mobile-menu{display:flex;position:fixed;inset:0;background:#070709f7;backdrop-filter:blur(15px);z-index:900;flex-direction:column;align-items:center;justify-content:center;gap:25px;opacity:0;visibility:hidden;transition:.5s}
+  .mobile-menu.open{opacity:1;visibility:visible}.mobile-menu a{font:800 1.6rem Cinzel;text-decoration:none;text-transform:uppercase}
+  .trainer,.details{grid-template-columns:1fr}section{padding:75px 0}.form-box{padding:25px}
+}
+@media(max-width:600px){
+  .container{width:min(100% - 30px,1200px)}.hero h1{font-size:2.5rem}.hero p{font-size:1rem}
+  .stats{gap:25px}.stats strong{font-size:1.5rem}.card{padding:24px}.price-card{padding:28px}
+  .chat-launcher{right:16px;bottom:16px}.chat-panel{right:16px;bottom:76px}
+}
+@media(prefers-reduced-motion:reduce){
+  *,*:before,*:after{animation-duration:.01ms!important;transition-duration:.01ms!important}
+  html{scroll-behavior:auto}.reveal{opacity:1;transform:none;filter:none}
+}
+</style>
+</head>
+
+<body>
+<div class="progress" id="progress"></div>
+
+<header id="header">
+  <div class="container">
+    <nav>
+      <a href="#home" class="brand">SAI <span>KARTHIK</span></a>
+      <div class="nav-links">
+        <a href="#trainer">Trainer</a>
+        <a href="#transformations">Transformations</a>
+        <a href="#testimonials">Testimonials</a>
+        <a href="#pricing">Pricing</a>
+        <a href="#contact" class="btn">Book Consultation</a>
+      </div>
+      <button class="burger" id="burger" aria-label="Open menu"><span></span><span></span></button>
+    </nav>
+  </div>
+</header>
+
+<div class="mobile-menu" id="mobileMenu">
+  <a href="#trainer">Trainer</a>
+  <a href="#transformations">Transformations</a>
+  <a href="#testimonials">Testimonials</a>
+  <a href="#pricing">Pricing</a>
+  <a href="#contact" class="btn gold-btn">Book Consultation</a>
+</div>
+
+<main>
+<section class="hero" id="home">
+  <div class="container">
+    <h1 class="hero-heading">Coached by <span>Sai Karthik</span></h1>
+    <p>Exercise Science Specialist and Sports Nutritionist.</p>
+    <div class="actions">
+      <a href="#contact" class="btn">Start Your Journey</a>
+      <a href="#trainer" class="btn gold-btn">Meet The Trainer</a>
+    </div>
+    <div class="stats">
+      <div class="stat"><strong>10+</strong><span>Years Experience</span></div>
+      <div class="stat"><strong>500+</strong><span>Clients Coached</span></div>
+      <div class="stat"><strong>100%</strong><span>Personal Attention</span></div>
+    </div>
+  </div>
+  <div class="scroll"></div>
+</section>
+
+<section id="trainer">
+  <div class="container">
+    <div class="trainer reveal">
+      <div class="trainer-photo">
+        <img src="saikarthik-trainer.png" alt="Saikarthik, head coach">
+      </div>
+      <div>
+        <div class="eyebrow">Head Coach</div>
+        <h2>Madishetti Saikarthik</h2>
+        <p class="muted">A focused coaching approach combining structured strength training, physique development, nutrition guidance and consistent accountability.</p>
+        <ul class="check-list">
+          <li>Personalized strength programs</li>
+          <li>Physique and body-composition coaching</li>
+          <li>Training technique and form guidance</li>
+          <li>Progress tracking and accountability</li>
+          <li>Goal-based coaching plans</li>
+        </ul>
+        <a href="#contact" class="btn">Talk To The Coach</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="transformations">
+  <div class="container">
+    <div class="section-title reveal">
+      <h2>Transformations</h2>
+      <div class="line"></div>
+      <p>Consistent training, structured programming and disciplined execution create measurable progress.</p>
+    </div>
+    <div class="cards">
+      <div class="card reveal">
+        <img class="transformation-photo" src="transformation-client-1.png" alt="Client before-and-after transformation">
+        <h3>Strength Development</h3>
+        <p>Build a stronger foundation through progressive resistance training and better movement quality.</p>
+      </div>
+      <div class="card reveal">
+        <img class="transformation-photo" src="transformation-client-2.png" alt="Client before-and-after transformation">
+        <h3>Physique Coaching</h3>
+        <p>Structured workouts and nutrition-focused habits designed around individual physique goals.</p>
+      </div>
+      <div class="card reveal">
+        <img class="transformation-photo" src="transformation-client-3.png" alt="Client before-and-after transformation">
+        <h3>Long-Term Progress</h3>
+        <p>Track performance, adjust training and stay accountable instead of relying on short-term motivation.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="testimonials">
+  <div class="container">
+    <div class="section-title reveal">
+      <h2>Client Stories</h2>
+      <div class="line"></div>
+      <p>What clients can experience from a structured coaching journey.</p>
+    </div>
+    <div class="cards">
+      <figure class="card testimonial reveal">
+        <span class="quote">“</span>
+        <blockquote>The structured approach helped me stay consistent and understand exactly what I needed to improve.</blockquote>
+        <strong>Client One</strong><small>Strength Coaching</small>
+      </figure>
+      <figure class="card testimonial reveal">
+        <span class="quote">“</span>
+        <blockquote>Every workout had a clear purpose, and tracking my progress made the process much easier to follow.</blockquote>
+        <strong>Client Two</strong><small>Physique Coaching</small>
+      </figure>
+      <figure class="card testimonial reveal">
+        <span class="quote">“</span>
+        <blockquote>The focus on technique and gradual progress completely changed how I approach training.</blockquote>
+        <strong>Client Three</strong><small>Personal Training</small>
+      </figure>
+    </div>
+  </div>
+</section>
+
+<section id="pricing">
+  <div class="container">
+    <div class="section-title reveal">
+      <h2>Coaching Plans</h2>
+      <div class="line"></div>
+      <p>Choose a session package that matches your goals. Each session is 3–4 hours and costs ₹499.</p>
+    </div>
+    <div class="cards">
+      <div class="card price-card reveal">
+        <h3>30 Sessions</h3>
+        <p class="muted">Valid for 3 months</p>
+        <div class="price">₹14,970</div>
+        <ul class="features">
+          <li>30 coached sessions</li>
+          <li>3–4 hours per session</li>
+          <li>₹499 per session</li>
+          <li>Personalized workout plan</li>
+          <li>Basic progress tracking</li>
+        </ul>
+        <a href="#contact" class="btn">Choose Plan</a>
+      </div>
+      <div class="card price-card highlight reveal">
+        <span class="pill">Popular</span>
+        <h3>60 Sessions</h3>
+        <p class="muted">Valid for 6 months</p>
+        <div class="price">₹29,940</div>
+        <ul class="features">
+          <li>60 coached sessions</li>
+          <li>3–4 hours per session</li>
+          <li>₹499 per session</li>
+          <li>Customized training program</li>
+          <li>Nutrition guidance</li>
+          <li>Progress reviews</li>
+        </ul>
+        <a href="#contact" class="btn gold-btn">Choose Plan</a>
+      </div>
+      <div class="card price-card reveal">
+        <h3>100 Sessions</h3>
+        <p class="muted">Valid for 12 months</p>
+        <div class="price">₹49,900</div>
+        <ul class="features">
+          <li>100 coached sessions</li>
+          <li>3–4 hours per session</li>
+          <li>₹499 per session</li>
+          <li>Fully personalized programming</li>
+          <li>Detailed progress analysis</li>
+          <li>Nutrition and lifestyle guidance</li>
+        </ul>
+        <a href="#contact" class="btn">Choose Plan</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="certifications">
+  <div class="container">
+    <div class="section-title reveal">
+      <h2>Training Approach</h2>
+      <div class="line"></div>
+      <p>Professional, structured and goal-oriented coaching.</p>
+    </div>
+    <div class="cards">
+      <div class="card reveal"><h3>Evidence-Based Training</h3><p>Training is organized around progressive overload, recovery and measurable performance.</p></div>
+      <div class="card reveal"><h3>Individual Programming</h3><p>Programs can be adapted around experience level, goals, schedule and available equipment.</p></div>
+      <div class="card reveal"><h3>Accountability</h3><p>Regular tracking keeps your training focused and makes progress easier to evaluate.</p></div>
+    </div>
+  </div>
+</section>
+
+<section id="contact">
+  <div class="container">
+    <div class="section-title reveal">
+      <h2>Book A Consultation</h2>
+      <div class="line"></div>
+      <p>Share your goal and get started with a personalized coaching discussion.</p>
+      <p class="muted">Call <a href="tel:+919398517298">+91 93985 17298</a> or <a href="https://wa.me/919398517298?text=Hi%2C%20I%27m%20interested%20in%20coaching.%20Please%20share%20the%20plans%20and%20details." target="_blank" rel="noopener">chat on WhatsApp</a>.</p>
+    </div>
+    <div class="form-box reveal">
+      <form id="contactForm">
+        <input class="field" type="text" name="name" placeholder="Your name" required>
+        <input class="field" type="tel" name="phone" placeholder="Phone number" required>
+        <select class="field" name="goal" required>
+          <option value="">Select your goal</option>
+          <option>Build Strength</option>
+          <option>Build Muscle</option>
+          <option>Fat Loss</option>
+          <option>Physique Transformation</option>
+          <option>Personal Training</option>
+        </select>
+        <textarea class="field" name="message" placeholder="Tell us about your goal"></textarea>
+        <button class="btn full" type="submit">Continue on WhatsApp</button>
+      </form>
+    </div>
+  </div>
+</section>
+
+<section id="location">
+  <div class="container">
+    <div class="section-title reveal">
+      <h2>Visit The Gym</h2>
+      <div class="line"></div>
+    </div>
+    <div class="details">
+      <div class="info reveal">
+        <h3>Training Location</h3>
+        <p>Sai Karthik</p>
+        <p>Add your exact gym address here.</p>
+        <p><a href="#" onclick="return false">Open Google Maps →</a></p>
+      </div>
+      <div class="info reveal">
+        <h3>Facilities</h3>
+        <div class="facilities">
+          <span>Strength Equipment</span><span>Free Weights</span><span>Cardio</span><span>Personal Training</span><span>Changing Rooms</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="container">© 2026 Sai Karthik | Elite Coaching. All rights reserved.</div>
+</footer>
+
+<a class="whatsapp" href="https://wa.me/919398517298?text=Hi%2C%20I%27m%20interested%20in%20coaching.%20Please%20share%20the%20plans%20and%20details." target="_blank" rel="noopener" aria-label="Chat on WhatsApp with Sai Karthik">◉</a>
+
+<button class="chat-launcher" id="chatLauncher" type="button" aria-controls="chatPanel" aria-expanded="false">Chat with us</button>
+<aside class="chat-panel" id="chatPanel" aria-label="Sai Karthik coaching assistant" hidden>
+  <div class="chat-header">
+    <div><strong>Sai Karthik Assistant</strong><small>Coaching info and recommendations</small></div>
+    <button class="chat-close" id="chatClose" type="button" aria-label="Close chat">×</button>
+  </div>
+  <div class="chat-messages" id="chatMessages" aria-live="polite" aria-relevant="additions"></div>
+  <form class="chat-form" id="chatForm">
+    <input class="chat-input" id="chatInput" type="text" placeholder="Ask about coaching..." aria-label="Ask about coaching">
+    <button class="chat-send" type="submit">Send</button>
+  </form>
+</aside>
+
+<script>
+const header=document.getElementById("header");
+const progress=document.getElementById("progress");
+const burger=document.getElementById("burger");
+const mobileMenu=document.getElementById("mobileMenu");
+
+window.addEventListener("scroll",()=>{
+  header.classList.toggle("scrolled",window.scrollY>20);
+  const max=document.documentElement.scrollHeight-window.innerHeight;
+  progress.style.transform=`scaleX(${max>0?window.scrollY/max:0})`;
+});
+
+burger.addEventListener("click",()=>{
+  burger.classList.toggle("open");
+  mobileMenu.classList.toggle("open");
+});
+
+document.querySelectorAll(".mobile-menu a").forEach(a=>{
+  a.addEventListener("click",()=>{
+    burger.classList.remove("open");
+    mobileMenu.classList.remove("open");
+  });
+});
+
+const observer=new IntersectionObserver(entries=>{
+  entries.forEach(entry=>{
+    if(entry.isIntersecting) entry.target.classList.add("active");
+  });
+},{threshold:.12});
+
+document.querySelectorAll(".reveal").forEach(el=>observer.observe(el));
+
+const chatLauncher=document.getElementById("chatLauncher");
+const chatPanel=document.getElementById("chatPanel");
+const chatMessages=document.getElementById("chatMessages");
+const chatForm=document.getElementById("chatForm");
+const chatInput=document.getElementById("chatInput");
+const chatAnswers={};
+let qualificationStep="";
+
+function addChatMessage(text,sender="bot"){
+  const message=document.createElement("div");
+  message.className=`chat-message ${sender}`;
+  message.textContent=text;
+  chatMessages.append(message);
+  chatMessages.scrollTop=chatMessages.scrollHeight;
+}
+
+function addChatOptions(options){
+  const group=document.createElement("div");
+  group.className="chat-options";
+  options.forEach(({label,value,action})=>{
+    const button=document.createElement("button");
+    button.type="button";
+    button.className="chat-option";
+    button.textContent=label;
+    button.addEventListener("click",()=>{
+      group.remove();
+      addChatMessage(label,"user");
+      if(action) action();
+      else handleQualificationAnswer(value);
+    });
+    group.append(button);
+  });
+  chatMessages.append(group);
+  chatMessages.scrollTop=chatMessages.scrollHeight;
+}
+
+function beginRecommendation(){
+  qualificationStep="goal";
+  addChatMessage("Great! I can help narrow down a coaching option. What would you most like to work on?");
+  addChatOptions([
+    {label:"Build strength",value:"Build strength"},
+    {label:"Build muscle",value:"Build muscle"},
+    {label:"Fat loss",value:"Fat loss"},
+    {label:"Physique transformation",value:"Physique transformation"}
+  ]);
+}
+
+function handleQualificationAnswer(answer){
+  if(qualificationStep==="goal"){
+    chatAnswers.goal=answer;
+    qualificationStep="experience";
+    addChatMessage("Thanks. How would you describe your training experience?");
+    addChatOptions(["Beginner","Some experience","Experienced"].map(value=>({label:value,value})));
+  }else if(qualificationStep==="experience"){
+    chatAnswers.experience=answer;
+    qualificationStep="support";
+    addChatMessage("Which session package would you like to ask the coach about? Each session is 3–4 hours at ₹499 per session.");
+    addChatOptions([
+      {label:"30 sessions — ₹14,970",value:"30 sessions — ₹14,970; valid 3 months"},
+      {label:"60 sessions — ₹29,940",value:"60 sessions — ₹29,940; valid 6 months"},
+      {label:"100 sessions — ₹49,900",value:"100 sessions — ₹49,900; valid 12 months"},
+      {label:"Help me choose",value:"Help me choose"}
+    ]);
+  }else if(qualificationStep==="support"){
+    chatAnswers.support=answer;
+    qualificationStep="";
+    addChatMessage(`Thanks! Here is a quick summary for the coach:\nGoal: ${chatAnswers.goal}\nExperience: ${chatAnswers.experience}\nPackage preference: ${chatAnswers.support}\n\nEach session is 3–4 hours at ₹499. Packages: 30 sessions for ₹14,970 (valid 3 months), 60 sessions for ₹29,940 (valid 6 months), or 100 sessions for ₹49,900 (valid 12 months). Tap below to send your summary and ask the coach to confirm the details.`);
+    addChatOptions([{
+      label:"Send my details to the coach on WhatsApp",
+      action:()=>{
+        const message=[
+          "Hi Madishetti Saikarthik, I completed the coaching recommendation chat.",
+          `My goal: ${chatAnswers.goal}`,
+          `Training experience: ${chatAnswers.experience}`,
+          `Coaching preference: ${chatAnswers.support}`,
+          "Please recommend the best plan and share the next steps."
+        ].join("\n");
+        window.open(`https://wa.me/919398517298?text=${encodeURIComponent(message)}`,"_blank","noopener");
+      }
+    }]);
+  }
+}
+
+function answerChatQuestion(question){
+  const text=question.toLowerCase();
+  if(/price|pricing|cost|plan|fee/.test(text)){
+    addChatMessage("Each session is 3–4 hours and costs ₹499. Packages: 30 sessions — ₹14,970, valid 3 months; 60 sessions — ₹29,940, valid 6 months; 100 sessions — ₹49,900, valid 12 months. Contact the coach to discuss which package suits your goals.");
+  }else if(/trainer|coach|saikarthik|about/.test(text)){
+    addChatMessage("Your coach is Madishetti Saikarthik. Coaching covers strength training, physique development, nutrition guidance, technique and progress tracking. You can ask the coach directly at +91 93985 17298.");
+  }else if(/phone|number|contact|whatsapp|call/.test(text)){
+    addChatMessage("You can contact Madishetti Saikarthik on WhatsApp or by phone at +91 93985 17298.");
+    addChatOptions([{label:"Message the coach on WhatsApp",action:()=>window.open("https://wa.me/919398517298","_blank","noopener")}]);
+  }else if(/location|address|where|gym/.test(text)){
+    addChatMessage("The page lists Sai Karthik as the training brand, but does not provide a street address. Please message the coach at +91 93985 17298 to confirm the exact location.");
+  }else if(/nutrition|diet|food/.test(text)){
+    addChatMessage("Nutrition guidance is included in the 60-session and 100-session packages. The coach can advise on an approach suited to your goals.");
+  }else{
+    addChatMessage("I can help with coaching plans and prices, the trainer, nutrition guidance, contact details, or a coaching recommendation. For anything specific, message Madishetti Saikarthik at +91 93985 17298.");
+    addChatOptions([{label:"Get a coaching recommendation",action:beginRecommendation}]);
+  }
+}
+
+chatLauncher.addEventListener("click",()=>{
+  chatPanel.hidden=!chatPanel.hidden;
+  chatLauncher.setAttribute("aria-expanded",String(!chatPanel.hidden));
+  if(!chatPanel.hidden){
+    if(!chatMessages.childElementCount){
+      addChatMessage("Hi! I'm the Sai Karthik website assistant. I can answer common questions about the listed plans or help you prepare a coaching enquiry. Replies are preset, and your answers are only sent to the coach if you choose the WhatsApp handoff.");
+      addChatOptions([
+        {label:"Get a coaching recommendation",action:beginRecommendation},
+        {label:"Show plans and prices",action:()=>answerChatQuestion("plans and prices")},
+        {label:"About the trainer",action:()=>answerChatQuestion("about the trainer")}
+      ]);
+    }
+    chatInput.focus();
+  }
+});
+
+document.getElementById("chatClose").addEventListener("click",()=>{
+  chatPanel.hidden=true;
+  chatLauncher.setAttribute("aria-expanded","false");
+  chatLauncher.focus();
+});
+
+chatForm.addEventListener("submit",event=>{
+  event.preventDefault();
+  const question=chatInput.value.trim();
+  if(!question)return;
+  chatInput.value="";
+  addChatMessage(question,"user");
+  answerChatQuestion(question);
+});
+
+document.getElementById("contactForm").addEventListener("submit",e=>{
+  e.preventDefault();
+  const enquiry=new FormData(e.currentTarget);
+  const message=[
+    "Hi! I'd like to enquire about coaching.",
+    `Name: ${enquiry.get("name")}`,
+    `My phone number: ${enquiry.get("phone")}`,
+    `Goal: ${enquiry.get("goal")}`,
+    `Details: ${enquiry.get("message") || "Please share the available coaching plans and details."}`
+  ].join("\n");
+  window.location.href=`https://wa.me/919398517298?text=${encodeURIComponent(message)}`;
+});
+</script>
+</body>
+</html>

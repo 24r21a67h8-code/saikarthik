@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex">
+<title>Admin</title>
+<style>
+:root{--g:#d4a537;--r:#c8102e}*{box-sizing:border-box}body{margin:0;background:#0a0a0a;color:#ece6d8;font:15px/1.5 system-ui,sans-serif}
+.w{max-width:900px;margin:auto;padding:24px 16px 80px}h1{color:var(--g);letter-spacing:.06em}h3{color:var(--g);margin:28px 0 8px}
+input,textarea,select{width:100%;padding:11px 13px;margin:4px 0 12px;background:#141414;border:1px solid #2a2418;border-radius:8px;color:#ece6d8;font:inherit}
+input:focus,textarea:focus{outline:0;border-color:var(--g)}label{font-size:.8rem;color:#9a9486;text-transform:uppercase;letter-spacing:.08em}
+button{padding:10px 20px;border:0;border-radius:8px;background:var(--r);color:#fff;font-weight:600;cursor:pointer;transition:.3s}button:hover{filter:brightness(1.2)}button.o{background:none;border:1px solid var(--g);color:var(--g)}
+.tabs{display:flex;gap:8px;flex-wrap:wrap;margin:16px 0}.tabs button{background:#141414;border:1px solid #2a2418}.tabs button.a{background:var(--g);color:#000}
+.box{background:#141414;border:1px solid #2a2418;border-radius:12px;padding:16px;margin-bottom:14px}.row{display:grid;grid-template-columns:1fr 1fr;gap:0 14px}
+.bar{position:fixed;left:0;right:0;bottom:0;background:#000;border-top:1px solid var(--g);padding:12px;display:flex;gap:12px;justify-content:center;align-items:center}
+img.t{max-height:90px;border-radius:6px;margin-bottom:8px}#m{color:var(--g)}.er{color:#ff6b7f}@media(max-width:600px){.row{grid-template-columns:1fr}}
+</style></head><body><div class="w" id="app"></div>
+<script>
+const $=s=>document.querySelector(s),E=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const api=async(u,m='GET',b)=>{const r=await fetch(u,{method:m,headers:{'Content-Type':'application/json'},body:b?JSON.stringify(b):undefined});const j=await r.json().catch(()=>({}));if(!r.ok)throw Object.assign(new Error(j.error||'Error'),{s:r.status});return j};
+let C,tab='site';
+const login=(e='')=>$('#app').innerHTML=`<h1>ADMIN LOGIN</h1><p class="er">${e}</p><input id="pw" type="password" placeholder="Password" autofocus><button id="go">Login</button>`+'';
+async function boot(){try{await api('/api/admin/check');C=await api('/api/content');draw()}catch{login();$('#go').onclick=doLogin;$('#pw').onkeydown=e=>e.key==='Enter'&&doLogin()}}
+async function doLogin(){try{await api('/api/login','POST',{password:$('#pw').value});boot()}catch(e){login(e.message);$('#go').onclick=doLogin}}
+const f=(l,k,o=C,t='input')=>{const v=o[k.split('.').pop()];return `<label>${l}</label><${t} data-k="${k}" ${t==='input'?`value="${E(v)}"`:'rows=5'}>${t==='textarea'?E(v)+'</textarea>':''}`};
+function draw(){const T={site:'Site Details',stats:'Stats & Services',certs:'Certificates',enq:'Enquiries',pw:'Password'};
+$('#app').innerHTML=`<h1>ADMIN PANEL</h1><div class="tabs">${Object.entries(T).map(([k,v])=>`<button class="${k===tab?'a':''}" data-t="${k}">${v}</button>`).join('')}<button class="o" id="lo">Logout</button><a href="/" target="_blank"><button class="o">View Site</button></a></div><div id="pane"></div>`;
+document.querySelectorAll('[data-t]').forEach(b=>b.onclick=()=>{sync();tab=b.dataset.t;draw()});$('#lo').onclick=async()=>{await api('/api/logout');boot()};pane()}
+function sync(){document.querySelectorAll('[data-k]').forEach(i=>{const p=i.dataset.k.split('.');let o=C;for(let j=0;j<p.length-1;j++)o=o[p[j]];o[p.at(-1)]=i.value})}
+function bar(){return '<div class="bar"><span id="m"></span><button id="sv">Save Changes</button></div>'}
+async function save(){sync();try{await api('/api/admin/content','PUT',C);$('#m').textContent='Saved. Changes are live.'}catch(e){$('#m').textContent=e.message}}
+function up(inp,cb){const fl=inp.files[0];if(!fl)return;const r=new FileReader();r.onload=()=>{const im=new Image();im.onload=async()=>{const s=Math.min(1,1400/Math.max(im.width,im.height)),c=document.createElement('canvas');c.width=im.width*s;c.height=im.height*s;c.getContext('2d').drawImage(im,0,0,c.width,c.height);
+try{const j=await api('/api/admin/upload','POST',{data:c.toDataURL('image/jpeg',.85)});cb(j.url)}catch(e){alert(e.message)}};im.src=r.result};r.readAsDataURL(fl)}
+function list(key,fields,blank){return C[key].map((x,i)=>`<div class="box">${fields.map(([k,l])=>f(l,`${key}.${i}.${k}`,x)).join('')}<button class="o" data-del="${key}.${i}">Remove</button></div>`).join('')+`<button class="o" data-add="${key}">+ Add</button>`}
+function pane(){const P=$('#pane');
+if(tab==='site'){P.innerHTML=['brand:Name','institute:Big headline (institute)','title:Title','tagline:Tagline','phone:Phone','whatsapp:WhatsApp number (with country code, e.g. 919876543210)','email:Email','instagram:Instagram link','location:Location'].map(s=>{const[k,l]=s.split(':');return f(l,k)}).join('')+f('About text','about',C,'textarea')+`<label>Your photo</label>${C.aboutImage?`<img class="t" src="${E(C.aboutImage)}"><br>`:''}<input type="file" accept="image/*" id="ph">`+bar();$('#ph').onchange=e=>up(e.target,u=>{C.aboutImage=u;sync();draw()})}
+else if(tab==='stats'){P.innerHTML='<h3>Stats</h3>'+list('stats',[['n','Number'],['l','Label']])+'<h3>Services</h3>'+list('services',[['t','Title'],['d','Description']])+bar()}
+else if(tab==='certs'){P.innerHTML=C.certs.map((x,i)=>`<div class="box"><img class="t" src="${E(x.img)}"><br><input type="file" accept="image/*" data-up="${i}"><div class="row">${[['title','Title'],['issuer','Issued by'],['date','Issue date'],['valid','Valid till'],['no','Certificate no.']].map(([k,l])=>f(l,`certs.${i}.${k}`,x)).join('')}</div><button class="o" data-del="certs.${i}">Remove</button></div>`).join('')+'<button class="o" data-add="certs">+ Add certificate</button>'+bar();
+document.querySelectorAll('[data-up]').forEach(i=>i.onchange=()=>up(i,u=>{sync();C.certs[+i.dataset.up].img=u;draw()}))}
+else if(tab==='enq'){api('/api/admin/enquiries').then(l=>P.innerHTML=l.length?l.map(e=>`<div class="box"><b>${E(e.name)}</b> &middot; <a style="color:var(--g)" href="tel:${E(e.phone)}">${E(e.phone)}</a> ${e.email?'&middot; '+E(e.email):''}<br>${E(e.goal)}<br>${E(e.message)}<br><small>${new Date(e.t).toLocaleString()}</small></div>`).join(''):'<p>No enquiries yet.</p>');return}
+else{P.innerHTML='<label>Current password</label><input id="o" type="password"><label>New password (min 8 characters)</label><input id="n" type="password"><button id="cp">Change Password</button><p id="m"></p>';$('#cp').onclick=async()=>{try{await api('/api/admin/password','POST',{old:$('#o').value,new:$('#n').value});$('#m').textContent='Password changed.'}catch(e){$('#m').textContent=e.message}};return}
+if($('#sv'))$('#sv').onclick=save;
+document.querySelectorAll('[data-add]').forEach(b=>b.onclick=()=>{sync();const k=b.dataset.add;C[k].push(k==='stats'?{n:'',l:''}:k==='services'?{t:'',d:''}:{title:'',issuer:'',date:'',valid:'',no:'',img:''});draw()});
+document.querySelectorAll('[data-del]').forEach(b=>b.onclick=()=>{if(!confirm('Remove this item?'))return;sync();const[k,i]=b.dataset.del.split('.');C[k].splice(+i,1);draw()})}
+boot();
+</script></body></html>
